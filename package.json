@@ -1,0 +1,19 @@
+{
+    "name": "react-typescript-boilerplate",
+    "version": "1.0.0",
+    "description": "A boilerplate for react + typescript development",
+    "private": true,
+    "author": {
+        "name": "YuTengjing",
+        "url": "https://github.com/tjx666",
+        "email": "ytj2713151713@gmail.com"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git@github.com:tjx666/react-typescript-boilerplate.git"
+    },
+    "license": "MIT",
+    "scripts": {
+        "test": "echo 'skip test...'"
+    }
+}

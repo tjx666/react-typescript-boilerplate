@@ -1,0 +1,16 @@
+{
+    // 排除哪些文件不参与搜索
+    "search.exclude": {
+        "**/node_modules": true,
+        "dist": true,
+        "yarn.lock": true
+    },
+    // 指定哪些文件不被 VSCode 监听，防止启动 VSCode 时 CPU 占用过高
+    "files.watcherExclude": {
+        "**/.git/objects/**": true,
+        "**/.git/subtree-cache/**": true,
+        "**/node_modules/*/**": true,
+        "dist": true,
+        "yarn.lock": true
+    }
+}
