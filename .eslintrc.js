@@ -1,4 +1,4 @@
-const { resolve } = require('path');
+const { resolve } = require;
 
 module.exports = {
     env: {
@@ -27,14 +27,14 @@ module.exports = {
             },
             // 配置 eslint-import-resolver-typescript 读取 tsconfig.json 的路径
             typescript: {
-                directory: [resolve(__dirname, './src/tsconfig.json'), resolve(__dirname, './scripts/tsconfig.json')],
+                // directory: [resolve('./src/tsconfig.json'), resolve('./scripts/tsconfig.json')],
             },
         },
     },
     plugins: ['react', '@typescript-eslint'],
     rules: {
         'import/extensions': [
-            'error',
+            2,
             'ignorePackages',
             {
                 ts: 'never',
@@ -44,34 +44,34 @@ module.exports = {
             },
         ],
 
-        '@typescript-eslint/no-useless-constructor': 'error',
+        '@typescript-eslint/no-useless-constructor': 2,
 
-        'react/jsx-filename-extension': ['error', { extensions: ['.tsx'] }],
-        'react/jsx-indent-props': ['error', 4],
-        'react/jsx-indent': ['error', 4],
+        'react/jsx-filename-extension': [2, { extensions: ['.tsx'] }],
+        'react/jsx-indent-props': [2, 4],
+        'react/jsx-indent': [2, 4],
 
-        'func-names': 'off',
-        'lines-between-class-members': 'off',
-        'no-console': 'off',
-        'no-empty': 'warn',
-        'no-param-reassign': 'warn',
-        'no-plusplus': 'off',
-        'no-unused-expressions': 'off',
-        'no-unused-vars': 'warn',
-        'no-useless-constructor': 'off',
+        'func-names': 0,
+        'lines-between-class-members': 0,
+        'no-console': 0,
+        'no-empty': 1,
+        'no-param-reassign': 1,
+        'no-plusplus': 0,
+        'no-unused-expressions': 0,
+        'no-unused-vars': 1,
+        'no-useless-constructor': 0,
     },
     overrides: [
         {
             files: ['**/*.d.ts'],
             rules: {
-                'import/no-duplicates': 'off',
-                'max-classes-per-file': 'off',
+                'import/no-duplicates': 0,
+                'max-classes-per-file': 0,
             },
         },
         {
             files: ['scripts/**/*.ts'],
             rules: {
-                'import/no-extraneous-dependencies': 'off',
+                'import/no-extraneous-dependencies': 0,
             },
         },
     ],
