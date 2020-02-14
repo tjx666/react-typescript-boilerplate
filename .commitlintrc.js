@@ -5,7 +5,7 @@ module.exports = {
             2,
             'always',
             // 暂时定为默认值，根据自己的需求调整
-            ['build', 'ci', 'chore', 'docs', 'feat', 'fix', 'perf', 'refactor', 'revert', 'style', 'test'],
+            ['build', 'ci', 'chore', 'deps', 'docs', 'feat', 'fix', 'perf', 'refactor', 'revert', 'style', 'test'],
         ],
     },
 };
