@@ -1,4 +1,7 @@
 const { resolve } = require;
+const OFF = 0;
+const WARN = 1;
+const ERROR = 2;
 
 module.exports = {
     env: {
@@ -6,7 +9,17 @@ module.exports = {
         es6: true,
         node: true,
     },
-    extends: ['plugin:react/recommended', 'airbnb', 'airbnb/hooks', 'prettier'],
+    extends: [
+        'airbnb',
+        'airbnb/hooks',
+        'plugin:eslint-comments/recommended',
+        'plugin:import/typescript',
+        'plugin:react/recommended',
+        'plugin:@typescript-eslint/recommended',
+        'prettier',
+        'prettier/react',
+        'prettier/@typescript-eslint',
+    ],
     globals: {
         Atomics: 'readonly',
         SharedArrayBuffer: 'readonly',
@@ -34,7 +47,7 @@ module.exports = {
     plugins: ['react', '@typescript-eslint'],
     rules: {
         'import/extensions': [
-            2,
+            ERROR,
             'ignorePackages',
             {
                 ts: 'never',
@@ -44,34 +57,34 @@ module.exports = {
             },
         ],
 
-        '@typescript-eslint/no-useless-constructor': 2,
+        '@typescript-eslint/no-useless-constructor': ERROR,
 
-        'react/jsx-filename-extension': [2, { extensions: ['.tsx'] }],
-        'react/jsx-indent-props': [2, 4],
-        'react/jsx-indent': [2, 4],
+        'react/jsx-filename-extension': [ERROR, { extensions: ['.tsx'] }],
+        'react/jsx-indent-props': [ERROR, 4],
+        'react/jsx-indent': [ERROR, 4],
 
-        'func-names': 0,
-        'lines-between-class-members': 0,
-        'no-console': 0,
-        'no-empty': 1,
-        'no-param-reassign': 1,
-        'no-plusplus': 0,
-        'no-unused-expressions': 0,
-        'no-unused-vars': 1,
-        'no-useless-constructor': 0,
+        'func-names': OFF,
+        'lines-between-class-members': OFF,
+        'no-console': OFF,
+        'no-empty': WARN,
+        'no-param-reassign': WARN,
+        'no-plusplus': OFF,
+        'no-unused-expressions': OFF,
+        'no-unused-vars': WARN,
+        'no-useless-constructor': OFF,
     },
     overrides: [
         {
             files: ['**/*.d.ts'],
             rules: {
-                'import/no-duplicates': 0,
-                'max-classes-per-file': 0,
+                'import/no-duplicates': OFF,
+                'max-classes-per-file': OFF,
             },
         },
         {
             files: ['scripts/**/*.ts'],
             rules: {
-                'import/no-extraneous-dependencies': 0,
+                'import/no-extraneous-dependencies': OFF,
             },
         },
     ],
