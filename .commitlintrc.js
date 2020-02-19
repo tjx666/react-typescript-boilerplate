@@ -4,8 +4,21 @@ module.exports = {
         'type-enum': [
             2,
             'always',
-            // 暂时定为默认值，根据自己的需求调整
-            ['build', 'ci', 'chore', 'deps', 'docs', 'feat', 'fix', 'perf', 'refactor', 'revert', 'style', 'test'],
+            // 比默认值多了个 deps
+            [
+                'build',
+                'ci',
+                'chore',
+                'deps',
+                'docs',
+                'feat',
+                'fix',
+                'perf',
+                'refactor',
+                'revert',
+                'style',
+                'test',
+            ],
         ],
     },
 };
