@@ -82,6 +82,8 @@ const commonConfig: Configuration = {
         }),
         new CleanWebpackPlugin(),
         new HtmlWebpackPlugin({
+            // HtmlWebpackPlugin 会调用 HtmlMinifier 对 HTMl 文件进行压缩
+            // 只在生产环境压缩
             minify: __DEV__ ? false : htmlMinifyOptions,
             template: resolvePath(projectRoot, './public/index.html'),
             templateParameters: (...args: any[]) => {

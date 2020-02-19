@@ -1,5 +1,7 @@
 import webpack from 'webpack';
+
 import prodConfig from './configs/webpack.prod';
+import { isAnalyze } from './env';
 
 const compiler = webpack(prodConfig);
 
@@ -11,6 +13,7 @@ compiler.run((error, stats) => {
 
     const prodStatsOpts = {
         preset: 'normal',
+        modules: isAnalyze,
         colors: true,
     };
 

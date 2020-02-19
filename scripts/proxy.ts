@@ -13,6 +13,7 @@ const proxyTable: ProxyTable = {
     '/path_to_be_proxy': { target: 'http://target.domain.com', changeOrigin: true },
 };
 
+// 修饰链接的辅助函数, 修改颜色并添加下划线
 function renderLink(str: string) {
     return chalk.magenta.underline(str);
 }

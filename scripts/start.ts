@@ -17,8 +17,9 @@ import { hmrPath } from './env';
 function openBrowser(compiler: Compiler, address: string) {
     if (argv.open) {
         let hadOpened = false;
-        // 第一次编译成功时打开浏览器
+        // 编译完成时执行
         compiler.hooks.done.tap('open-browser-plugin', async (stats: Stats) => {
+            // 没有打开过浏览器并且没有编译错误就打开浏览器
             if (!hadOpened && !stats.hasErrors()) {
                 await open(address);
                 hadOpened = true;
@@ -84,6 +85,7 @@ async function start() {
         );
     });
 
+    // 我们监听了 node 信号，所以使用 cross-env-shell 而不是 cross-env
     process.on('SIGINT', () => {
         // 先关闭 devServer
         httpServer.close();
