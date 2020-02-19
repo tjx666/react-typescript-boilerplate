@@ -1,4 +1,5 @@
 const { resolve } = require;
+
 const OFF = 0;
 const WARN = 1;
 const ERROR = 2;
@@ -35,17 +36,17 @@ module.exports = {
     settings: {
         'import/resolver': {
             node: {
-                // 指定 eslint-plugin-import 解析的后缀名
                 extensions: ['.ts', '.tsx', '.js', '.json'],
             },
-            // 配置 eslint-import-resolver-typescript 读取 tsconfig.json 的路径
             typescript: {
-                // directory: [resolve('./src/tsconfig.json'), resolve('./scripts/tsconfig.json')],
+                directory: [resolve('./src/tsconfig.json'), resolve('./scripts/tsconfig.json')],
             },
         },
     },
     plugins: ['react', '@typescript-eslint'],
     rules: {
+        'eslint-comments/disable-enable-pair': ['error', { allowWholeFile: true }],
+
         'import/extensions': [
             ERROR,
             'ignorePackages',
@@ -57,6 +58,9 @@ module.exports = {
             },
         ],
 
+        '@typescript-eslint/explicit-function-return-type': OFF,
+        '@typescript-eslint/no-explicit-any': OFF,
+        '@typescript-eslint/no-non-null-assertion': OFF,
         '@typescript-eslint/no-useless-constructor': ERROR,
 
         'react/jsx-filename-extension': [ERROR, { extensions: ['.tsx'] }],
@@ -65,11 +69,14 @@ module.exports = {
 
         'func-names': OFF,
         'lines-between-class-members': OFF,
+        'max-classes-per-file': OFF,
         'no-console': OFF,
-        'no-empty': WARN,
+        'no-empty': OFF,
         'no-param-reassign': WARN,
         'no-plusplus': OFF,
+        'no-underscore-dangle': OFF,
         'no-unused-expressions': OFF,
+        'no-unused-vars': OFF,
         'no-unused-vars': WARN,
         'no-useless-constructor': OFF,
     },
@@ -78,7 +85,6 @@ module.exports = {
             files: ['**/*.d.ts'],
             rules: {
                 'import/no-duplicates': OFF,
-                'max-classes-per-file': OFF,
             },
         },
         {
