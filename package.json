@@ -1,7 +1,7 @@
 {
     "name": "react-typescript-boilerplate",
     "version": "1.0.0",
-    "description": "A boilerplate for react + typescript development",
+    "description": "An awesome boilerplate for react + typescript development",
     "private": true,
     "author": {
         "name": "YuTengjing",
