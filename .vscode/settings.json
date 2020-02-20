@@ -1,4 +1,5 @@
 {
+    // 使用本地安装的 TypeScript 替代 VSCode 内置的来提供智能提示
     "typescript.tsdk": "./node_modules/typescript/lib",
     // 指定哪些文件不参与搜索
     "search.exclude": {
