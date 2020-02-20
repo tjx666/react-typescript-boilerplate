@@ -62,10 +62,10 @@ function setupMiddlewares(compiler: Compiler, server: Express) {
 }
 
 async function start() {
-    const HOST = '127.0.0.1';
-    // 4个备选端口，都被占用会使用随机端口
-    const PORT = await getPort({ port: [3000, 4000, 8080, 8888] });
-    const address = `http://${HOST}:${PORT}`;
+    const host = '127.0.0.1';
+    // 提供了一些备选端口，都被占用会使用随机端口
+    const port = await getPort({ host, port: [3000, 3600, 4000, 8080, 8888] });
+    const address = `http://${host}:${port}`;
 
     // 加载 webpack 配置
     const compiler = webpack(devConfig);
@@ -74,7 +74,7 @@ async function start() {
     const devServer = express();
     setupMiddlewares(compiler, devServer);
 
-    const httpServer = devServer.listen(PORT, HOST, err => {
+    const httpServer = devServer.listen(port, host, err => {
         if (err) {
             console.error(err);
             return;
@@ -86,6 +86,7 @@ async function start() {
     });
 
     // 我们监听了 node 信号，所以使用 cross-env-shell 而不是 cross-env
+    // 参考：https://github.com/kentcdodds/cross-env#cross-env-vs-cross-env-shell
     process.on('SIGINT', () => {
         // 先关闭 devServer
         httpServer.close();
