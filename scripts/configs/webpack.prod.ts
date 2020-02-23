@@ -1,3 +1,4 @@
+import { resolve } from 'path';
 import merge from 'webpack-merge';
 import ForkTsCheckerWebpackPlugin from 'fork-ts-checker-webpack-plugin';
 import MiniCssExtractPlugin from 'mini-css-extract-plugin';
@@ -9,14 +10,14 @@ import CompressionPlugin from 'compression-webpack-plugin';
 import SizePlugin from 'size-plugin';
 
 import commonConfig from './webpack.common';
-import { isAnalyze, resolvePath, projectRoot } from '../env';
+import { ENABLE_ANALYZE, PROJECT_ROOT } from '../utils/constants';
 
 const mergedConfig = merge(commonConfig, {
     mode: 'production',
     plugins: [
         new ForkTsCheckerWebpackPlugin({
             memoryLimit: 1024 * 2,
-            tsconfig: resolvePath(projectRoot, './src/tsconfig.json'),
+            tsconfig: resolve(PROJECT_ROOT, './src/tsconfig.json'),
             measureCompilationTime: true,
         }),
         new MiniCssExtractPlugin({
@@ -36,7 +37,7 @@ const mergedConfig = merge(commonConfig, {
 const smp = new SpeedMeasurePlugin();
 const prodConfig = smp.wrap(mergedConfig);
 
-if (isAnalyze) {
+if (ENABLE_ANALYZE) {
     mergedConfig.plugins!.push(new BundleAnalyzerPlugin());
 }
 

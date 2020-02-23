@@ -1,3 +1,4 @@
+import { resolve } from 'path';
 import { BannerPlugin, Configuration } from 'webpack';
 import WebpackBar from 'webpackbar';
 import FriendlyErrorsPlugin from 'friendly-errors-webpack-plugin';
@@ -11,7 +12,7 @@ import CopyPlugin from 'copy-webpack-plugin';
 import HardSourceWebpackPlugin from 'hard-source-webpack-plugin';
 import { loader as MiniCssExtractLoader } from 'mini-css-extract-plugin';
 
-import { __DEV__, projectName, resolvePath, projectRoot, hmrPath } from '../env';
+import { __DEV__, COPYRIGHT, PROJECT_NAME, PROJECT_ROOT, HMR_PATH } from '../utils/constants';
 
 function getCssLoaders(importLoaders: number) {
     return [
@@ -46,13 +47,13 @@ const htmlMinifyOptions: HtmlMinifierOptions = {
 };
 
 const commonConfig: Configuration = {
-    context: projectRoot,
-    entry: ['react-hot-loader/patch', resolvePath(projectRoot, './src/index.tsx')],
+    context: PROJECT_ROOT,
+    entry: ['react-hot-loader/patch', resolve(PROJECT_ROOT, './src/index.tsx')],
     output: {
         publicPath: '/',
-        path: resolvePath(projectRoot, './dist'),
+        path: resolve(PROJECT_ROOT, './dist'),
         filename: 'js/[name]-[hash].bundle.js',
-        hashSalt: projectName || 'react typescript boilerplate',
+        hashSalt: PROJECT_NAME,
     },
     resolve: {
         // 指定 require 模块尝试使用的后缀名
@@ -69,7 +70,7 @@ const commonConfig: Configuration = {
         }),
         new BannerPlugin({
             raw: true,
-            banner: `/** @preserve Powered by react-typescript-boilerplate (https://github.com/tjx666/react-typescript-boilerplate) */`,
+            banner: COPYRIGHT,
         }),
         new FriendlyErrorsPlugin(),
         // new WebpackBuildNotifierPlugin({ suppressSuccess: true }),
@@ -78,14 +79,14 @@ const commonConfig: Configuration = {
             exclude: /node_modules/,
             failOnError: true,
             allowAsyncCycles: false,
-            cwd: projectRoot,
+            cwd: PROJECT_ROOT,
         }),
         new CleanWebpackPlugin(),
         new HtmlWebpackPlugin({
             // HtmlWebpackPlugin 会调用 HtmlMinifier 对 HTMl 文件进行压缩
             // 只在生产环境压缩
             minify: __DEV__ ? false : htmlMinifyOptions,
-            template: resolvePath(projectRoot, './public/index.html'),
+            template: resolve(PROJECT_ROOT, './public/index.html'),
             templateParameters: (...args: any[]) => {
                 const [compilation, assets, assetTags, options] = args;
                 const rawPublicPath = commonConfig.output!.publicPath!;
@@ -107,12 +108,12 @@ const commonConfig: Configuration = {
             [
                 {
                     from: '*',
-                    to: resolvePath(projectRoot, './dist'),
+                    to: resolve(PROJECT_ROOT, './dist'),
                     toType: 'dir',
                     ignore: ['index.html'],
                 },
             ],
-            { context: resolvePath(projectRoot, './public') },
+            { context: resolve(PROJECT_ROOT, './public') },
         ),
         new HardSourceWebpackPlugin({ info: { mode: 'none', level: 'warn' } }),
     ],
@@ -181,7 +182,7 @@ const commonConfig: Configuration = {
 };
 
 if (__DEV__) {
-    (commonConfig.entry as string[]).unshift(`webpack-hot-middleware/client?path=${hmrPath}`);
+    (commonConfig.entry as string[]).unshift(`webpack-hot-middleware/client?path=${HMR_PATH}`);
 }
 
 export default commonConfig;

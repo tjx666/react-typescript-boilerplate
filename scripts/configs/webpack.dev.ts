@@ -1,9 +1,10 @@
-import { HotModuleReplacementPlugin, NamedModulesPlugin } from 'webpack';
+import { resolve } from 'path';
 import merge from 'webpack-merge';
+import { HotModuleReplacementPlugin, NamedModulesPlugin } from 'webpack';
 import ForkTsCheckerWebpackPlugin from 'fork-ts-checker-webpack-plugin';
 
 import commonConfig from './webpack.common';
-import { resolvePath, projectRoot } from '../env';
+import { PROJECT_ROOT } from '../utils/constants';
 
 const devConfig = merge(commonConfig, {
     mode: 'development',
@@ -11,7 +12,7 @@ const devConfig = merge(commonConfig, {
     plugins: [
         new ForkTsCheckerWebpackPlugin({
             memoryLimit: 1024,
-            tsconfig: resolvePath(projectRoot, './src/tsconfig.json'),
+            tsconfig: resolve(PROJECT_ROOT, './src/tsconfig.json'),
         }),
         new HotModuleReplacementPlugin(),
         new NamedModulesPlugin(),
