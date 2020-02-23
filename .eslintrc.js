@@ -45,7 +45,7 @@ module.exports = {
     },
     plugins: ['react', '@typescript-eslint'],
     rules: {
-        'eslint-comments/disable-enable-pair': ['error', { allowWholeFile: true }],
+        'eslint-comments/disable-enable-pair': [ERROR, { allowWholeFile: true }],
 
         'import/extensions': [
             ERROR,
@@ -72,7 +72,7 @@ module.exports = {
         'max-classes-per-file': OFF,
         'no-console': OFF,
         'no-empty': OFF,
-        'no-param-reassign': WARN,
+        'no-param-reassign': OFF,
         'no-plusplus': OFF,
         'no-underscore-dangle': OFF,
         'no-unused-expressions': OFF,
