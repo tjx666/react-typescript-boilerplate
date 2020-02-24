@@ -1,7 +1,6 @@
 const { resolve } = require;
 
 const OFF = 0;
-const WARN = 1;
 const ERROR = 2;
 
 module.exports = {
@@ -76,8 +75,6 @@ module.exports = {
         'no-plusplus': OFF,
         'no-underscore-dangle': OFF,
         'no-unused-expressions': OFF,
-        'no-unused-vars': OFF,
-        'no-unused-vars': WARN,
         'no-useless-constructor': OFF,
     },
     overrides: [
