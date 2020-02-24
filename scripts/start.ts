@@ -12,11 +12,9 @@ import openBrowser from './utils/openBrowser';
 async function start() {
     const PORT = await getPort(HOST, DEFAULT_PORT);
     const address = `http://${HOST}:${PORT}`;
-
+    const devServer = express();
     // 加载 webpack 配置，获取 compiler
     const compiler = webpack(devConfig);
-
-    const devServer = express();
     setupMiddlewares(devServer, compiler);
     openBrowser(compiler, address);
 
@@ -25,7 +23,6 @@ async function start() {
             console.error(err);
             return;
         }
-
         // logSymbols.success 在 windows 平台渲染为 √ ，支持的平台会显示 ✔
         console.log(
             `DevServer is running at ${chalk.magenta.underline(address)} ${logSymbols.success}`,

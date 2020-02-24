@@ -16,9 +16,6 @@ export default function proxyMiddleware(server: Express) {
 
         if (!options.logLevel) options.logLevel = 'warn';
         server.use(path, createProxyMiddleware(options));
-
-        // 如果需要更灵活的定义方式
-        // 请在下面直接使用 server.use(path, proxyMiddleware(options)) 定义
     });
     process.stdout.write('\n');
 }

@@ -21,7 +21,9 @@ function getCssLoaders(importLoaders: number) {
             loader: 'css-loader',
             options: {
                 modules: false,
+                // 前面使用的每一个 loader 都需要指定 sourceMap 选项
                 sourceMap: true,
+                // 指定在 css-loader 前应用的 loader 的数量
                 importLoaders,
             },
         },
@@ -32,6 +34,7 @@ function getCssLoaders(importLoaders: number) {
     ];
 }
 
+// index.html 压缩选项
 const htmlMinifyOptions: HtmlMinifierOptions = {
     collapseWhitespace: true,
     collapseBooleanAttributes: true,
@@ -56,9 +59,10 @@ const commonConfig: Configuration = {
         hashSalt: PROJECT_NAME,
     },
     resolve: {
-        // 指定 require 模块尝试使用的后缀名
+        // 指定 webpack 在 require 模块时，尝试使用的后缀名
         extensions: ['.ts', '.tsx', '.js', '.json'],
         alias: {
+            // 替换 react-dom 成 @hot-loader/react-dom 以支持 react hooks 的 hot reload
             'react-dom': '@hot-loader/react-dom',
         },
     },
@@ -98,6 +102,8 @@ const commonConfig: Configuration = {
                         files: assets,
                         options,
                     },
+                    // 在 index.html 模板中注入模板参数 PUBLIC_PATH
+                    // 移除最后的反斜杠为了让拼接路径更自然，例如：<%= `${PUBLIC_PATH}/favicon.ico` %>
                     PUBLIC_PATH: rawPublicPath.endsWith('/')
                         ? rawPublicPath.slice(0, -1)
                         : rawPublicPath,
@@ -157,8 +163,9 @@ const commonConfig: Configuration = {
                     {
                         loader: 'url-loader',
                         options: {
-                            // 低于 10 k
-                            limit: 100 * 1024,
+                            // 低于 10 k 转换成 base64
+                            limit: 10 * 1024,
+                            // 在文件名中插入文件内容 hash，解决强缓存立即更新的问题
                             name: '[name].[contenthash].[ext]',
                             outputPath: 'images',
                         },
@@ -182,6 +189,7 @@ const commonConfig: Configuration = {
 };
 
 if (__DEV__) {
+    // 开发环境下注入热更新补丁
     (commonConfig.entry as string[]).unshift(`webpack-hot-middleware/client?path=${HMR_PATH}`);
 }
 
