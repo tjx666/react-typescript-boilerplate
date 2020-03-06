@@ -16,6 +16,8 @@ module.exports = {
         'plugin:import/typescript',
         'plugin:react/recommended',
         'plugin:@typescript-eslint/recommended',
+        'plugin:unicorn/recommended',
+        'plugin:promise/recommended',
         'prettier',
         'prettier/react',
         'prettier/@typescript-eslint',
@@ -42,7 +44,7 @@ module.exports = {
             },
         },
     },
-    plugins: ['react', '@typescript-eslint'],
+    plugins: ['react', '@typescript-eslint', 'unicorn', 'promise'],
     rules: {
         'eslint-comments/disable-enable-pair': [ERROR, { allowWholeFile: true }],
 
@@ -56,6 +58,24 @@ module.exports = {
                 js: 'never',
             },
         ],
+
+        'unicorn/prevent-abbreviations': OFF,
+        'unicorn/filename-case': [
+            'error',
+            {
+                cases: {
+                    // 中划线
+                    kebabCase: false,
+                    // 小驼峰
+                    camelCase: true,
+                    // 下划线
+                    snakeCase: false,
+                    // 大驼峰
+                    pascalCase: true,
+                },
+            },
+        ],
+        'unicorn/no-process-exit': OFF,
 
         '@typescript-eslint/explicit-function-return-type': OFF,
         '@typescript-eslint/no-explicit-any': OFF,
