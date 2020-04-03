@@ -1,4 +1,5 @@
 import { resolve } from 'path';
+import { BannerPlugin } from 'webpack';
 import merge from 'webpack-merge';
 import ForkTsCheckerWebpackPlugin from 'fork-ts-checker-webpack-plugin';
 import MiniCssExtractPlugin from 'mini-css-extract-plugin';
@@ -10,11 +11,15 @@ import CompressionPlugin from 'compression-webpack-plugin';
 import SizePlugin from 'size-plugin';
 
 import commonConfig from './webpack.common';
-import { ENABLE_ANALYZE, PROJECT_ROOT } from '../utils/constants';
+import { COPYRIGHT, ENABLE_ANALYZE, PROJECT_ROOT } from '../utils/constants';
 
 const mergedConfig = merge(commonConfig, {
     mode: 'production',
     plugins: [
+        new BannerPlugin({
+            raw: true,
+            banner: COPYRIGHT,
+        }),
         new ForkTsCheckerWebpackPlugin({
             // 生产环境打包并不频繁，可以适当调高允许使用的内存，加快类型检查速度
             memoryLimit: 1024 * 2,

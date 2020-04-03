@@ -1,4 +1,8 @@
 {
+    // stylelint 扩展自身的校验就够了
+    "css.validate": false,
+    "less.validate": false,
+    "scss.validate": false,
     // 使用本地安装的 TypeScript 替代 VSCode 内置的来提供智能提示
     "typescript.tsdk": "./node_modules/typescript/lib",
     // 指定哪些文件不参与搜索
@@ -12,8 +16,7 @@
         "**/.git/objects/**": true,
         "**/.git/subtree-cache/**": true,
         "**/node_modules/*/**": true,
-        "dist": true,
-        "yarn.lock": true
+        "**/dist/**": true
     },
     // 配置 VScode 使用 prettier 的 formatter
     "[javascript]": {

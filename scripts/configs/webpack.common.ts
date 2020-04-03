@@ -1,18 +1,16 @@
 import { resolve } from 'path';
-import { BannerPlugin, Configuration } from 'webpack';
+import { Configuration } from 'webpack';
 import WebpackBar from 'webpackbar';
 import FriendlyErrorsPlugin from 'friendly-errors-webpack-plugin';
 // import WebpackBuildNotifierPlugin from 'webpack-build-notifier';
-import CaseSensitivePathsPlugin from 'case-sensitive-paths-webpack-plugin';
-import CircularDependencyPlugin from 'circular-dependency-plugin';
 import { CleanWebpackPlugin } from 'clean-webpack-plugin';
 import HtmlWebpackPlugin from 'html-webpack-plugin';
+// eslint-disable-next-line import/no-unresolved
 import { Options as HtmlMinifierOptions } from 'html-minifier';
 import CopyPlugin from 'copy-webpack-plugin';
-import HardSourceWebpackPlugin from 'hard-source-webpack-plugin';
 import { loader as MiniCssExtractLoader } from 'mini-css-extract-plugin';
 
-import { __DEV__, COPYRIGHT, PROJECT_NAME, PROJECT_ROOT, HMR_PATH } from '../utils/constants';
+import { __DEV__, PROJECT_NAME, PROJECT_ROOT, HMR_PATH } from '../utils/constants';
 
 function getCssLoaders(importLoaders: number) {
     return [
@@ -50,6 +48,7 @@ const htmlMinifyOptions: HtmlMinifierOptions = {
 };
 
 const commonConfig: Configuration = {
+    cache: true,
     context: PROJECT_ROOT,
     entry: ['react-hot-loader/patch', resolve(PROJECT_ROOT, './src/index.tsx')],
     output: {
@@ -59,8 +58,8 @@ const commonConfig: Configuration = {
         hashSalt: PROJECT_NAME,
     },
     resolve: {
-        // 指定 webpack 在 require 模块时，尝试使用的后缀名
-        extensions: ['.ts', '.tsx', '.js', '.json'],
+        // 我们导入ts 等模块一般不写后缀名，webpack 会尝试使用这个数组提供的后缀名去导入
+        extensions: ['.js', '.tsx', '.ts', '.json'],
         alias: {
             // 替换 react-dom 成 @hot-loader/react-dom 以支持 react hooks 的 hot reload
             'react-dom': '@hot-loader/react-dom',
@@ -73,19 +72,8 @@ const commonConfig: Configuration = {
             // react 蓝
             color: '#61dafb',
         }),
-        new BannerPlugin({
-            raw: true,
-            banner: COPYRIGHT,
-        }),
         new FriendlyErrorsPlugin(),
         // new WebpackBuildNotifierPlugin({ suppressSuccess: true }),
-        new CaseSensitivePathsPlugin(),
-        new CircularDependencyPlugin({
-            exclude: /node_modules/,
-            failOnError: true,
-            allowAsyncCycles: false,
-            cwd: PROJECT_ROOT,
-        }),
         new CleanWebpackPlugin(),
         new HtmlWebpackPlugin({
             // HtmlWebpackPlugin 会调用 HtmlMinifier 对 HTMl 文件进行压缩
@@ -122,7 +110,6 @@ const commonConfig: Configuration = {
             ],
             { context: resolve(PROJECT_ROOT, './public') },
         ),
-        new HardSourceWebpackPlugin({ info: { mode: 'none', level: 'warn' } }),
     ],
     module: {
         rules: [

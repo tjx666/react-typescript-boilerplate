@@ -37,7 +37,8 @@ module.exports = {
     settings: {
         'import/resolver': {
             node: {
-                extensions: ['.ts', '.tsx', '.js', '.json'],
+                // import 模块时，不写后缀将尝试导入的后缀，出现频率高的文件类型放前面
+                extensions: ['.tsx', '.ts', '.js', '.json'],
             },
             typescript: {
                 directory: [resolve('./src/tsconfig.json'), resolve('./scripts/tsconfig.json')],
@@ -61,7 +62,7 @@ module.exports = {
 
         'unicorn/prevent-abbreviations': OFF,
         'unicorn/filename-case': [
-            'error',
+            ERROR,
             {
                 cases: {
                     // 中划线

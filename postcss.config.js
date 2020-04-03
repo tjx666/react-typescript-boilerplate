@@ -1,4 +1,4 @@
-/* eslint-disable global-require, @typescript-eslint/no-var-requires */
+/* eslint-disable global-require, import/no-extraneous-dependencies, @typescript-eslint/no-var-requires */
 
 module.exports = {
     plugins: [
