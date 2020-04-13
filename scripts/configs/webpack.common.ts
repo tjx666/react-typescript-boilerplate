@@ -50,7 +50,12 @@ const htmlMinifyOptions: HtmlMinifierOptions = {
 const commonConfig: Configuration = {
     cache: true,
     context: PROJECT_ROOT,
-    entry: ['react-hot-loader/patch', resolve(PROJECT_ROOT, './src/index.tsx')],
+    entry: [
+        // reload=true 设置 webpack 无法热更新时刷新整个页面，overlay=true 设置编译出错时在网页中显示出错信息遮罩
+        'webpack-hot-middleware/client?reload=true&overlay=true',
+        'react-hot-loader/patch',
+        resolve(PROJECT_ROOT, './src/index.tsx'),
+    ],
     output: {
         publicPath: '/',
         path: resolve(PROJECT_ROOT, './dist'),

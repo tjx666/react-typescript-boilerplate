@@ -17,13 +17,9 @@ export default function webpackMiddleware(compiler: Compiler) {
         // writeToDisk: true
     };
 
-    const hotMiddlewareOptions: webpackHotMiddleware.Options = {
+    const hotMiddlewareOptions: webpackHotMiddleware.MiddlewareOptions = {
         // sse 路由
         path: HMR_PATH,
-        // 编译出错会在网页中显示出错信息遮罩
-        overlay: true,
-        // webpack 卡住自动刷新页面
-        reload: true,
     };
 
     return [
