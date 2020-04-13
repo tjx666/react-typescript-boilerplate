@@ -9,5 +9,10 @@
         "mrmlnc.vscode-scss",
         "yutengjing.view-github-repository",
         "yutengjing.open-in-external-app"
+    ],
+    "unwantedRecommendations": [
+        "hookyqr.beautify",
+        "ms-vscode.vscode-typescript-tslint-plugin",
+        "dbaeumer.jshint"
     ]
 }

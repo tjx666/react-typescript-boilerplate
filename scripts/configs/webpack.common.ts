@@ -102,7 +102,8 @@ const commonConfig: Configuration = {
         new CopyPlugin(
             [
                 {
-                    from: '*',
+                    context: PROJECT_ROOT,
+                    from: 'public/*',
                     to: resolve(PROJECT_ROOT, './dist'),
                     toType: 'dir',
                     ignore: ['index.html'],

@@ -1,5 +1,5 @@
 import { resolve } from 'path';
-import { BannerPlugin } from 'webpack';
+import { BannerPlugin, HashedModuleIdsPlugin } from 'webpack';
 import merge from 'webpack-merge';
 import ForkTsCheckerWebpackPlugin from 'fork-ts-checker-webpack-plugin';
 import MiniCssExtractPlugin from 'mini-css-extract-plugin';
@@ -20,6 +20,7 @@ const mergedConfig = merge(commonConfig, {
             raw: true,
             banner: COPYRIGHT,
         }),
+        new HashedModuleIdsPlugin(),
         new ForkTsCheckerWebpackPlugin({
             // 生产环境打包并不频繁，可以适当调高允许使用的内存，加快类型检查速度
             memoryLimit: 1024 * 2,
@@ -32,20 +33,22 @@ const mergedConfig = merge(commonConfig, {
             ignoreOrder: false,
         }),
         new CompressionPlugin({ cache: true }),
-        new SizePlugin({ writeFile: false }),
     ],
     optimization: {
+        runtimeChunk: 'single',
         minimize: true,
         minimizer: [new TerserPlugin({ extractComments: false }), new OptimizeCSSAssetsPlugin()],
     },
 });
 
-const smp = new SpeedMeasurePlugin();
-const prodConfig = smp.wrap(mergedConfig);
+// eslint-disable-next-line import/no-mutable-exports
+let prodConfig = mergedConfig;
 
+// 使用 --analyze 参数构建时，会输出各个阶段的耗时和自动打开浏览器访问 bundle 分析页面
 if (ENABLE_ANALYZE) {
-    // 使用 --analyze 参数构建时，会自动打开浏览器访问 bundle 分析页面
-    mergedConfig.plugins!.push(new BundleAnalyzerPlugin());
+    prodConfig.plugins!.push(new SizePlugin({ writeFile: false }), new BundleAnalyzerPlugin());
+    const smp = new SpeedMeasurePlugin();
+    prodConfig = smp.wrap(mergedConfig);
 }
 
 export default prodConfig;
