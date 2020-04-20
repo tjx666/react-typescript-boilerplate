@@ -1,24 +1,28 @@
 import chalk from 'chalk';
 import logSymbols from 'log-symbols';
-import webpack from 'webpack';
 import express from 'express';
+import webpack from 'webpack';
+import { WebpackOpenBrowser } from 'webpack-open-browser';
 
 import devConfig from './configs/webpack.dev';
-import { HOST, DEFAULT_PORT } from './utils/constants';
+import { HOST, DEFAULT_PORT, ENABLE_OPEN } from './utils/constants';
 import getPort from './utils/getPort';
 import setupMiddlewares from './middlewares';
-import openBrowser from './utils/openBrowser';
 
 async function start() {
     const PORT = await getPort(HOST, DEFAULT_PORT);
     const address = `http://${HOST}:${PORT}`;
+    // ENABLE_OPEN 参数有可能是 true 或者是一个指定的 URL
+    if (ENABLE_OPEN) {
+        const openAddress = ENABLE_OPEN === true ? address : ENABLE_OPEN;
+        devConfig.plugins!.push(new WebpackOpenBrowser({ url: openAddress }));
+    }
     const devServer = express();
     // 加载 webpack 配置，获取 compiler
     const compiler = webpack(devConfig);
     setupMiddlewares(devServer, compiler);
-    openBrowser(compiler, address);
 
-    const httpServer = devServer.listen(PORT, HOST, err => {
+    const httpServer = devServer.listen(PORT, HOST, (err) => {
         if (err) {
             console.error(err);
             return;
