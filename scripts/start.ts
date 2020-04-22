@@ -2,7 +2,7 @@ import chalk from 'chalk';
 import logSymbols from 'log-symbols';
 import express from 'express';
 import webpack from 'webpack';
-import { WebpackOpenBrowser } from 'webpack-open-browser';
+import WebpackOpenBrowser from 'webpack-open-browser';
 
 import devConfig from './configs/webpack.dev';
 import { HOST, DEFAULT_PORT, ENABLE_OPEN } from './utils/constants';
