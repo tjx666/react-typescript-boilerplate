@@ -99,15 +99,19 @@ const commonConfig: Configuration = {
                 };
             },
         }),
-        new CopyPlugin([
-            {
-                context: resolve(PROJECT_ROOT, './public'),
-                from: '*',
-                to: resolve(PROJECT_ROOT, './dist'),
-                toType: 'dir',
-                ignore: ['index.html'],
-            },
-        ]),
+        new CopyPlugin({
+            patterns: [
+                {
+                    context: resolve(PROJECT_ROOT, './public'),
+                    from: '*',
+                    to: resolve(PROJECT_ROOT, './dist'),
+                    toType: 'dir',
+                    globOptions: {
+                        ignore: ['index.html'],
+                    },
+                },
+            ],
+        }),
     ],
     module: {
         rules: [

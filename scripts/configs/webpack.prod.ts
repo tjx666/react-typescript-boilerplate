@@ -1,6 +1,6 @@
 import { resolve } from 'path';
 import { BannerPlugin, HashedModuleIdsPlugin } from 'webpack';
-import merge from 'webpack-merge';
+import { merge } from 'webpack-merge';
 import ForkTsCheckerWebpackPlugin from 'fork-ts-checker-webpack-plugin';
 import MiniCssExtractPlugin from 'mini-css-extract-plugin';
 import TerserPlugin from 'terser-webpack-plugin';
@@ -22,10 +22,11 @@ const mergedConfig = merge(commonConfig, {
         }),
         new HashedModuleIdsPlugin(),
         new ForkTsCheckerWebpackPlugin({
-            // 生产环境打包并不频繁，可以适当调高允许使用的内存，加快类型检查速度
-            memoryLimit: 1024 * 2,
-            tsconfig: resolve(PROJECT_ROOT, './src/tsconfig.json'),
-            measureCompilationTime: true,
+            typescript: {
+                // 生产环境打包并不频繁，可以适当调高允许使用的内存，加快类型检查速度
+                memoryLimit: 1024 * 2,
+                configFile: resolve(PROJECT_ROOT, './src/tsconfig.json'),
+            },
         }),
         new MiniCssExtractPlugin({
             filename: 'css/[name].[contenthash].css',

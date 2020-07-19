@@ -3,9 +3,13 @@ declare module 'speed-measure-webpack-plugin' {
 
     interface SpeedMeasurePluginOptions {
         disable: boolean;
-        outputFormat: 'json' | 'human' | 'humanVerbose' | ((outputObj: object) => void);
+        outputFormat:
+            | 'json'
+            | 'human'
+            | 'humanVerbose'
+            | ((outputObj: Record<string, unknown>) => void);
         outputTarget: string | ((outputObj: string) => void);
-        pluginNames: object;
+        pluginNames: Record<string, unknown>;
         granularLoaderData: boolean;
     }
 
@@ -26,6 +30,7 @@ declare module 'size-plugin' {
         filename: string;
         publish: boolean;
         writeFile: boolean;
+        // eslint-disable-next-line @typescript-eslint/ban-types
         stripHash: Function;
     }
 

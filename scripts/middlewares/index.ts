@@ -10,7 +10,7 @@ import webpackMiddleware from './webpackMiddleware';
 /**
  * 配置中间件
  */
-export default function setupMiddlewares(server: Express, compiler: Compiler) {
+export default function setupMiddlewares(server: Express, compiler: Compiler): void {
     // 设置代理
     proxyMiddleware(server);
 
