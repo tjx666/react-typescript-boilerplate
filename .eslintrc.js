@@ -75,6 +75,7 @@ module.exports = {
                 },
             },
         ],
+        'unicorn/import-style': OFF,
         'unicorn/no-null': OFF,
         'unicorn/prevent-abbreviations': OFF,
         'unicorn/no-process-exit': OFF,
@@ -82,6 +83,7 @@ module.exports = {
         '@typescript-eslint/explicit-function-return-type': OFF,
         '@typescript-eslint/no-explicit-any': OFF,
         '@typescript-eslint/no-non-null-assertion': OFF,
+        '@typescript-eslint/no-use-before-define': ERROR,
         '@typescript-eslint/no-useless-constructor': ERROR,
 
         'react/jsx-filename-extension': [ERROR, { extensions: ['.tsx'] }],
@@ -98,6 +100,7 @@ module.exports = {
         'no-plusplus': OFF,
         'no-underscore-dangle': OFF,
         'no-unused-expressions': OFF,
+        'no-use-before-define': OFF,
         'no-useless-constructor': OFF,
     },
     overrides: [

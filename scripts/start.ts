@@ -35,11 +35,8 @@ async function start() {
     const compiler = webpack(devConfig);
     setupMiddlewares(devServer, compiler);
 
-    const httpServer = devServer.listen(PORT, HOST, (err) => {
-        if (err) {
-            console.error(err);
-            return;
-        }
+    // see: https://github.com/DefinitelyTyped/DefinitelyTyped/commit/bb48ba4feb5ef620b5fe5147a4ee0e31e741dd9c#diff-d4c3ca4364a91014c1024748a43ae185
+    const httpServer = devServer.listen(PORT, HOST, () => {
         // logSymbols.success 在 windows 平台渲染为 √ ，支持的平台会显示 ✔
         console.log(
             `DevServer is running at ${chalk.magenta.underline(address)} ${logSymbols.success}`,
