@@ -10,6 +10,6 @@
 
 ## :books: 系列教程
 
-- [从零开始配置 react + typescript（一）：dotfiles](https://lyreal666.com/从零开始配置-react-typescript（一）：dotfiles/)
-- [从零开始配置 react + typescript（二）：linters 和 formatter](https://lyreal666.com/从零开始配置-react-typescript（二）：linters-和-formatter/)
-- [从零开始配置 react + typescript（三）：webpack](https://lyreal666.com/从零开始配置-react-typescript（三）：webpack/)
+- [从零开始配置 react + typescript（一）：dotfiles](https://juejin.cn/post/6844904055618158600)
+- [从零开始配置 react + typescript（二）：linters 和 formatter](https://juejin.cn/post/6844904056591220750)
+- [从零开始配置 react + typescript（三）：webpack](https://juejin.cn/post/6844904067844538382)
